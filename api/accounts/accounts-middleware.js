@@ -15,11 +15,32 @@ exports.checkAccountPayload = (req, res, next) => {
   }
 }
 
-exports.checkAccountNameUnique = (req, res, next) => {
+exports.checkAccountNameUnique = async (req, res, next) => {
+  let test;
+
+  db('accounts').where('name', req.body.name.trim()).first()
+  .then(resp => {
+    test = resp;
+
+    if(resp){
+      console.log('there is a resp');
+    }else{
+      console.log('there is NOT a resp');
+    }
+  })
+  .catch(error => {
+    console.log(error);
+  })
   // DO YOUR MAGIC
-  
+
 }
 
 exports.checkAccountId = (req, res, next) => {
-  // DO YOUR MAGIC
+  db('accounts').where('name', req.body.name)
+  .then(resp => {
+    console.log(resp)
+  })
+  .catch(error => {
+    console.log(error);
+  })
 }
